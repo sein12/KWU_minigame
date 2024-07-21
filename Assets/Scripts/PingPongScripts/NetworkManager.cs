@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -14,6 +14,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Screen.SetResolution(960, 540, false); // 해상도 변경 필요
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
+        if (!(PhotonNetwork.IsConnected))
+            Connect();
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();
     public override void OnConnectedToMaster()
@@ -23,7 +25,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom() // 방에 접속하면 OnConnectedToMaster의 Callback으로 호출
     {
-        SceneManager.LoadScene("PingPong");
+        
         Debug.Log("Success Join"); // Test
     }
 
