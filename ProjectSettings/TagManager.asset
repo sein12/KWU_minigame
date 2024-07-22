@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GradeBall
   - PingPongBall
+  - PingPongGoal
   layers:
   - Default
   - TransparentFX

@@ -18,8 +18,8 @@ public class WallReflect : MonoBehaviour
             Rigidbody2D ballRB = collision.gameObject.GetComponent<Rigidbody2D>();
             Vector2 velocity = collision.gameObject.GetComponent<BallControl>().CurVelocity;
             ballRB.velocity = CalculateReflect(velocity, -collision.GetContact(0).normal);
-            
         }
+
     }
 
 

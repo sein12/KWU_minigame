@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
+
 public class PlayerControl : MonoBehaviourPunCallbacks, IPunObservable
 {
     public Rigidbody2D RB;
@@ -14,13 +15,8 @@ public class PlayerControl : MonoBehaviourPunCallbacks, IPunObservable
 
     void Awake()
     {
-        NickNameText.text = "JinWook";
-
         NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName;
         NickNameText.color = PV.IsMine ? Color.green : Color.red;
-        Debug.Log(NickNameText.text);
-
-
     }
 
 
