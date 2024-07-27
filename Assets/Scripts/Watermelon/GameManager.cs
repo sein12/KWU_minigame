@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +6,8 @@ public class GameManager : MonoBehaviour
     public GradeBall lastGradeBall;
     public GameObject gradeBallPrefab;
     public Transform gradeBallGroup;
+
+    public int maxLevel;
 
     void Awake()
     {
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour
     {
         GradeBall newGradeBall = GetGradeBall();
         lastGradeBall = newGradeBall;
-        lastGradeBall.level = Random.Range(0, 3);   // F, D, C
+        lastGradeBall.gameManager = this;
+        lastGradeBall.level = Random.Range(0, maxLevel);   // defaut max level: 3
         lastGradeBall.gameObject.SetActive(true);
 
         StartCoroutine("WaitNextGradeBall");
