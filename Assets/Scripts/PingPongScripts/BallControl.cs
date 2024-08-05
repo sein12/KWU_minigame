@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     public Rigidbody2D RB;
-    public Vector2 startVelocity = new Vector2(10f, 10f);
+    public Vector2 startVelocity = new Vector2(0f, 0f);
     public Vector2 CurVelocity;
 
     private void OnCollisionEnter2D(Collision2D collision)

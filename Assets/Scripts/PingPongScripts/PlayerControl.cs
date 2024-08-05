@@ -13,13 +13,10 @@ public class PlayerControl : MonoBehaviourPunCallbacks, IPunObservable
     public Rigidbody2D RB;
     public PhotonView PV;
     public Collider2D CD;
-    public TextMeshProUGUI NickNameText;
     public Transform UiJoyStick;
 
     void Awake()
     {
-        NickNameText.text = PV.IsMine ? PhotonNetwork.NickName : PV.Owner.NickName;
-        NickNameText.color = PV.IsMine ? Color.green : Color.red;
     }
 
 
@@ -31,7 +28,7 @@ public class PlayerControl : MonoBehaviourPunCallbacks, IPunObservable
 
     void FixedUpdate()
     {
-        Vector2 nextVec = InputVec * Time.fixedDeltaTime * 3;
+        Vector2 nextVec = InputVec * Time.fixedDeltaTime * 10;
         RB.MovePosition(RB.position + nextVec);
     }
 
