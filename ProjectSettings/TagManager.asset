@@ -6,7 +6,8 @@ TagManager:
   tags:
   - GradeBall
   - PingPongBall
-  - PingPongGoal
+  - LeftBottom
+  - RightBottom
   layers:
   - Default
   - TransparentFX

@@ -23,14 +23,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom() // 방에 접속하면 OnConnectedToMaster의 Callback으로 호출
     {
-        Spawn();
+        PlayerSpawn();
+        BallSpawn();
         Debug.Log("Success Join"); // Test
     }
-    public void Spawn()
+    public void PlayerSpawn()
     {
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-
     }
+    public void BallSpawn()
+    {
+        PhotonNetwork.Instantiate("ball", Vector3.zero, Quaternion.identity);
+        
+    }
+    /* public void BallDestory()
+    {
+        PhotonNetwork.Destroy("ball");
+    }
+    */
+
 
     void Start()
     {
