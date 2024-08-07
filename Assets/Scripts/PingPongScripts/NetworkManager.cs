@@ -41,6 +41,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Destroy("ball");
     }
     */
+    public override void OnDisconnected(DisconnectCause cause) // 연결 해제
+    {
+        
+    }
 
 
     void Start()

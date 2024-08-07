@@ -34,6 +34,7 @@ public class PlayerControl : MonoBehaviourPunCallbacks, IPunObservable
 
     void OnMove(InputValue value)
     {
+        if (PV.IsMine)
             InputVec = value.Get<Vector2>();
     }
 

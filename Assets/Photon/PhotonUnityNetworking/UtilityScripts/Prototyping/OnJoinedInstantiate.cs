@@ -116,6 +116,7 @@ namespace Photon.Pun.UtilityScripts
         /// and returns a best guess at the actual resource the dev intended to use.
         /// </summary>
         /// <returns></returns>
+        
         protected static GameObject ValidatePrefab(GameObject unvalidated)
         {
             if (unvalidated == null)

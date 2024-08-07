@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class BallControl : MonoBehaviour
+public class BallControl : MonoBehaviourPunCallbacks
 {
+    public PhotonView PV;
     public Rigidbody2D RB;
     public Vector2 startVelocity = new Vector2(0f, 0f);
     public Vector2 CurVelocity;
@@ -37,6 +40,6 @@ public class BallControl : MonoBehaviour
     void Update()
     {
         CurVelocity = RB.velocity;
-        this.gameObject.SetActive(true);
+       //  this.gameObject.SetActive(true);
     }
 }
