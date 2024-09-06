@@ -2,21 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Auth;
-using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class FirebaseAuthManager : MonoBehaviour
+public class FirebaseAuthManager
 {
+    private static FirebaseAuthManager instance = null;
+
+    public static FirebaseAuthManager Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = new FirebaseAuthManager();
+            }
+            return instance;
+        }
+    }
+
+
     private FirebaseAuth auth; // 로그인 / 회원가입 등
     private FirebaseUser user; // 인증이 완료된 유저 정보
 
-    public TMP_InputField email;
-    public TMP_InputField password;
+    public Action<bool> LoginState;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         auth = FirebaseAuth.DefaultInstance;
+
+        auth.StateChanged += Onchanged;
+    }
+
+    public void Onchanged(object sender, EventArgs e)
+    {
+        if(auth.CurrentUser != user)
+        {
+            bool signed = (auth.CurrentUser != user && auth.CurrentUser != null);
+            if(!signed && user != null)
+            {
+                Debug.Log("로그아웃");
+            }
+
+            user = auth.CurrentUser;
+            if (signed)
+            {
+                Debug.Log("로그인");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -24,9 +57,9 @@ public class FirebaseAuthManager : MonoBehaviour
     {
         
     }
-    public void Create()
+    public void Create(string email, string password)
     {
-        auth.CreateUserWithEmailAndPasswordAsync(email.text, password.text).ContinueWith(task => 
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => 
         {
             if (task.IsCanceled)
             {
@@ -46,9 +79,9 @@ public class FirebaseAuthManager : MonoBehaviour
         });
     }
 
-    public void Login()
+    public void LogIn(string email, string password)
     {
-        auth.SignInWithEmailAndPasswordAsync(email.text, password.text).ContinueWith(task =>
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
         {
             if (task.IsCanceled)
             {

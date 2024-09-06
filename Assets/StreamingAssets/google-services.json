@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "174248114444",
+    "firebase_url": "https://kwu-minigame-default-rtdb.firebaseio.com",
     "project_id": "kwu-minigame",
     "storage_bucket": "kwu-minigame.appspot.com"
   },
