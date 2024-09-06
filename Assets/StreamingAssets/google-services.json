@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "174248114444",
+    "project_id": "kwu-minigame",
+    "storage_bucket": "kwu-minigame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174248114444:android:2df87da1637110bc953129",
+        "android_client_info": {
+          "package_name": "com.levelup.kwuminigame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXAPIjesoLNrjRh4rDftws12eH0ZXJE7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
