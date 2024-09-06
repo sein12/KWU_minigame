@@ -74,6 +74,30 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+
+# Firebase 관련 파일들 (주로 빌드 시 생성됨)
+Assets/Firebase/Plugins/**/FirebaseCppApp*
+Assets/Firebase/Plugins/**/libFirebaseCppApp*
+Assets/Firebase/Plugins/**/FirebaseCpp.*
+Assets/Firebase/Plugins/**/libFirebaseCpp.*
+
+# Google 서비스 설정 파일 (자동 생성됨)
+google-services.json
+GoogleService-Info.plist
+
+# Firebase Crashlytics 관련 파일
+crashlytics-build.properties
+
+# Android & iOS 플러그인
+Assets/Plugins/Android/Firebase.*
+Assets/Plugins/iOS/Firebase.*
+
 # Firebase C++ 앱 파일 제외
 Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_1_0.bundle
 Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_1_0.so
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
