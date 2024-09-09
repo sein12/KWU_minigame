@@ -4,10 +4,13 @@ using UnityEngine;
 using Firebase.Auth;
 using TMPro;
 using System;
+using Firebase;
 
 public class FirebaseAuthManager
 {
+
     private static FirebaseAuthManager instance = null;
+    public bool loginCheck = false;
 
     public static FirebaseAuthManager Instance
     {
@@ -24,6 +27,8 @@ public class FirebaseAuthManager
 
     private FirebaseAuth auth; // 로그인 / 회원가입 등
     private FirebaseUser user; // 인증이 완료된 유저 정보
+
+    public string UserId => user.UserId;
 
     public Action<bool> LoginState;
 
@@ -42,12 +47,14 @@ public class FirebaseAuthManager
             if(!signed && user != null)
             {
                 Debug.Log("로그아웃");
+                LoginState?.Invoke(false);
             }
 
             user = auth.CurrentUser;
             if (signed)
             {
                 Debug.Log("로그인");
+                LoginState?.Invoke(true);
             }
         }
     }
@@ -59,7 +66,7 @@ public class FirebaseAuthManager
     }
     public void Create(string email, string password)
     {
-        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => 
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
         {
             if (task.IsCanceled)
             {
@@ -68,19 +75,44 @@ public class FirebaseAuthManager
             }
             if (task.IsFaulted)
             {
-                // 회원가입 실패 이유 => 이메일이 비정상 / 비밀번호가 너무 간단 / 이미 가입된 이메일 등등...
-                Debug.LogError("회원가입 실패");
+                // task.Exception에서 상세 오류 정보를 출력
+                Debug.LogError("회원가입 실패: " + task.Exception);
+
+                foreach (var exception in task.Exception.Flatten().InnerExceptions)
+                {
+                    FirebaseException firebaseEx = exception as FirebaseException;
+                    if (firebaseEx != null)
+                    {
+                        AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
+
+                        // 오류 코드에 따라 문제를 세분화하여 처리
+                        switch (errorCode)
+                        {
+                            case AuthError.InvalidEmail:
+                                Debug.LogError("잘못된 이메일 형식입니다.");
+                                break;
+                            case AuthError.EmailAlreadyInUse:
+                                Debug.LogError("이미 가입된 이메일입니다.");
+                                break;
+                            default:
+                                Debug.LogError("기타 오류 발생: " + firebaseEx.Message);
+                                break;
+                        }
+                    }
+                }
                 return;
             }
 
             AuthResult authResult = task.Result;
             FirebaseUser newUser = authResult.User;
-            Debug.LogError("회원가입 완료");
+            Debug.Log("회원가입 완료: " + newUser.Email);
         });
     }
 
+
     public void LogIn(string email, string password)
     {
+
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
         {
             if (task.IsCanceled)
@@ -96,7 +128,7 @@ public class FirebaseAuthManager
 
             AuthResult authResult = task.Result;
             FirebaseUser user = authResult.User;
-            Debug.LogError("로그인 완료");
+            Debug.Log("로그인 완료");
         });
     }
 
